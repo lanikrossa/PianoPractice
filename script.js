@@ -3,6 +3,7 @@ const connectButton = document.querySelector('#connect-midi-button');
 const overlay = document.querySelector('.overlay');
 const midiStatus= document.querySelector('#midiStatus');
 const modes = document.querySelectorAll('.mode-button')
+const keys = document.querySelectorAll('.keyboard button')
 
 // Practice Modes
 const [freeMode, scaleMode] = ["free-play", "scale"]
@@ -19,6 +20,17 @@ function activateMode(event){
     });
     clickedButton.classList.add("active");
     currentMode = clickedButton.dataset.mode;
+    if (currentMode === scaleMode){
+        keys.forEach(key => {
+            key.classList.remove("pressed");
+        });
+        expectedNoteIndex = 0;
+    } else if (currentMode === freeMode){
+        keys.forEach(key => {
+            key.classList.remove("incorrect");
+            key.classList.remove("correct");            
+        });
+    }
     console.log(`Changed mode to: ${currentMode}`);
 }
 // Scale and practice state
@@ -69,6 +81,15 @@ function handleMIDIMessage(event){
         }
         else if(currentMode === scaleMode){
             console.log(`Pressed: ${note} Expected: ${cMajorNotes[expectedNoteIndex]}`);
+            if(note === cMajorNotes[expectedNoteIndex]){
+                key.classList.add("correct");
+                keys.forEach(key => {
+                    key.classList.remove("incorrect");
+                });
+                expectedNoteIndex++;
+            }else{
+                key.classList.add("incorrect");
+            }
         }
     }
     else if (status === 128 || (status === 144 && velocity === 0)){ 

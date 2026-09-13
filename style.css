@@ -71,6 +71,7 @@ h1 {
     width: 90px;
     height: 250px;
     background-color: black;
+    border: 1px solid black;
     position: absolute;
     transform: translateX(-50%);
     z-index: 1;
@@ -131,4 +132,12 @@ h1 {
 
 .active{
     background-color: var(--dark);
+}
+
+.correct{
+    background-color: green;
+}
+
+.incorrect{
+    background-color: red;
 }
