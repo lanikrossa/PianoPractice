@@ -14,7 +14,7 @@ h1 {
 .keyboard{
     position: relative;
     height: 400px;
-    display: flex
+    display: flex;
 }
 
 .white-key{
