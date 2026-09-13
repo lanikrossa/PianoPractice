@@ -37,7 +37,7 @@ function keyinfo(event){
         console.log(`Pressed: ${note}`);
         key.classList.add("pressed");
     }
-    else if (status === 128){
+    else if (status === 128 || (status === 144 && velocity === 0)){
         console.log(`Released: ${note}`);
         key.classList.remove("pressed");
     }
