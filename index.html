@@ -6,10 +6,18 @@
     <title>Piano Practice App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="background">
 
    <h1>Ostinato</h1>
    <div class="content">
+        <div class="overlay">
+            <div class="overlay-content">
+                <h2>Connect Your Keyboard</h2>
+                <p>Connect your keyboard to this device using a MIDI cable.</p>
+                <button id="connect-midi-button">Connect MIDI</button>
+                <span id="midiStatus"></span>
+            </div>
+        </div>
         <div class="keyboard">
                 <button class="white-key" data-note= "C4" data-midi-note="60">
                     <span>C</span>
@@ -51,8 +59,6 @@
                     <span>C</span>
                 </button>
         </div>
-
-        <button id="connect-midi-button">Connect MIDI</button>
     </div>
     <script src="script.js"></script>
 </body>
