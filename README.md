@@ -1,4 +1,4 @@
-# Octavia 🎹
+# Octavia: Piano Studio
 
 Octavia is an early prototype of a piano practice app. It connects to a MIDI-enabled piano or keyboard in the browser and responds to notes as they are played.
 
