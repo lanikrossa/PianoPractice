@@ -1,6 +1,6 @@
-# Ostinato 🎹
+# Octavia 🎹
 
-Ostinato is an early prototype of a piano practice app. It connects to a MIDI-enabled piano or keyboard in the browser and responds to notes as they are played.
+Octavia is an early prototype of a piano practice app. It connects to a MIDI-enabled piano or keyboard in the browser and responds to notes as they are played.
 
 The goal is to guide users through piano exercises and score their performance on timing, note accuracy, and other practice metrics.
 
