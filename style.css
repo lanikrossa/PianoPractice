@@ -1,14 +1,62 @@
+:root {
+    --light: #fff2cc;
+    --medium-light:#cfe2f3;
+    --medium-dark: #d5a6bd;
+    --dark: #c27b8f;
+    --very-dark: #36006a;
+    --bright: #f1c232;
+}
+
+button, 
+input[type="button"], 
+input[type="submit"], 
+.btn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.background{
+    background: var(--light);
+}
 h1 {
-  color: #2a2a2a;            
+  color: var(--dark);            
   font-family: 'Arial', sans-serif; 
-  font-size: 2.5rem;      
-  font-weight: 700;       
-  margin-bottom: 20px;       
+  font-size: 4rem;      
+  font-weight: 600;       
+  margin-bottom: 5px;       
   text-align: center;
 }
 
+#scaleLabel{
+    font-size: 2rem; 
+    padding-left: 110px; 
+    visibility: hidden;
+}
+
 .content{
-    margin: 120px 100px 50px 100px;
+    margin: 40px 100px 50px 100px;
+}
+
+.overlay{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background: transparent;
+    inset: 0;
+}
+
+.overlay-content{
+    padding: 20px;
+    border: 1px solid black;
+    background: var(--medium-light);
+}
+
+#completion-overlay{
+    padding: 60px;
+    font-size: 3rem;
 }
 
 .keyboard{
@@ -34,6 +82,7 @@ h1 {
     width: 90px;
     height: 250px;
     background-color: black;
+    border: 1px solid black;
     position: absolute;
     transform: translateX(-50%);
     z-index: 1;
@@ -65,17 +114,42 @@ h1 {
 }   
 
 #connect-midi-button {
-    display: block;
-    margin: 60px 0px 20px auto;
-    padding: 10px 20px;
     font-size: 1.2rem;
-    background-color: #4CAF50;
+    background-color: var(--bright);
     color: white;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    display: block;
+    margin: 60px 0px 20px auto;
 }
 
 .pressed {
     background-color: aqua;
+}
+
+.hidden{
+    display: none;
+}
+#buttonContainer{
+    margin: 30px 0px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mode-button{
+    background-color: var(--medium-dark);
+    margin: 30px 0px 30px 20px;
+    width: 180px;
+    font-size: 1.2rem;
+}
+
+.active{
+    background-color: var(--dark);
+}
+
+.correct{
+    background-color: green;
+}
+
+.incorrect{
+    background-color: red;
 }

@@ -6,10 +6,24 @@
     <title>Piano Practice App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="background">
 
-   <h1>Ostinato</h1>
+   <h1>Octavia</h1>
    <div class="content">
+        <h2 id = "scaleLabel">C Major</h2>
+        <div class="overlay" id = "midi-overlay">
+            <div class="overlay-content" id="midi-overlay-content">
+                <h2>Connect Your Piano</h2>
+                <p>Connect your digital piano to this device using a MIDI cable.</p>
+                <button id="connect-midi-button">Connect MIDI</button>
+                <span id="midiStatus"></span>
+            </div>
+        </div>
+        <div class="overlay hidden" id = "completion-overlay">
+            <div class="overlay-content" id = "completion-overlay-content">
+                <h2>Good Job!</h2>
+            </div>
+        </div>
         <div class="keyboard">
                 <button class="white-key" data-note= "C4" data-midi-note="60">
                     <span>C</span>
@@ -51,8 +65,10 @@
                     <span>C</span>
                 </button>
         </div>
-
-        <button id="connect-midi-button">Connect MIDI</button>
+        <div id= "buttonContainer">
+            <button class = "mode-button active" data-mode = "free-play">Free Play</button>
+            <button class = "mode-button" data-mode = "scale">Scales Practice</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
