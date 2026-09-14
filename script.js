@@ -23,6 +23,8 @@ function activateMode(event){
     if (currentMode === scaleMode){
         keys.forEach(key => {
             key.classList.remove("pressed");
+            key.classList.remove("incorrect");
+            key.classList.remove("correct");      
         });
         expectedNoteIndex = 0;
     } else if (currentMode === freeMode){
@@ -81,6 +83,7 @@ function handleMIDIMessage(event){
         }
         else if(currentMode === scaleMode){
             console.log(`Pressed: ${note} Expected: ${cMajorNotes[expectedNoteIndex]}`);
+            clearIncorrectKeys();
             if(note === cMajorNotes[expectedNoteIndex]){
                 key.classList.add("correct");
                 keys.forEach(key => {
@@ -94,6 +97,12 @@ function handleMIDIMessage(event){
     }
     else if (status === 128 || (status === 144 && velocity === 0)){ 
         key.classList.remove("pressed");
+    }
+
+    function clearIncorrectKeys(){
+        keys.forEach(key => {
+            key.classList.remove("incorrect");  
+        });        
     }
 }
 
