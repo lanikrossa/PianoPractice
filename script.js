@@ -4,6 +4,7 @@ const overlay = document.querySelector('.overlay');
 const midiStatus= document.querySelector('#midiStatus');
 const modes = document.querySelectorAll('.mode-button')
 const keys = document.querySelectorAll('.keyboard button')
+const scaleLabel= document.querySelector('#scaleLabel');
 
 // Practice Modes
 const [freeMode, scaleMode] = ["free-play", "scale"]
@@ -27,11 +28,13 @@ function activateMode(event){
             key.classList.remove("correct");      
         });
         expectedNoteIndex = 0;
+        scaleLabel.style.visibility = "visible";
     } else if (currentMode === freeMode){
         keys.forEach(key => {
             key.classList.remove("incorrect");
             key.classList.remove("correct");            
         });
+        scaleLabel.style.visibility = "hidden";
     }
     console.log(`Changed mode to: ${currentMode}`);
 }

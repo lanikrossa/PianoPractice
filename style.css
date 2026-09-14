@@ -22,14 +22,20 @@ input[type="submit"],
 h1 {
   color: var(--dark);            
   font-family: 'Arial', sans-serif; 
-  font-size: 5rem;      
-  font-weight: 700;       
+  font-size: 4rem;      
+  font-weight: 600;       
   margin-bottom: 5px;       
   text-align: center;
 }
 
+#scaleLabel{
+    font-size: 2rem; 
+    padding: 0px 110px; 
+    visibility: hidden;
+}
+
 .content{
-    margin: 70px 100px 50px 100px;
+    margin: 40px 100px 50px 100px;
 }
 
 .overlay{
