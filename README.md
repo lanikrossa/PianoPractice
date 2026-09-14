@@ -11,8 +11,9 @@ The prototype currently:
 - Connects to MIDI input devices using the Web MIDI API
 - Detects note-on and note-off events
 - Highlights matching keys on an on-screen keyboard
+- Supports C major scale practice with note-by-note feedback and completion detection
 
-Exercise guidance and performance scoring are planned but not yet implemented.
+Additional exercises and performance scoring are planned but not yet implemented.
 
 ## Run locally
 
