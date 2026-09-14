@@ -30,7 +30,7 @@ h1 {
 
 #scaleLabel{
     font-size: 2rem; 
-    padding: 0px 110px; 
+    padding-left: 110px; 
     visibility: hidden;
 }
 
@@ -52,6 +52,11 @@ h1 {
     padding: 20px;
     border: 1px solid black;
     background: var(--medium-light);
+}
+
+#completion-overlay{
+    padding: 60px;
+    font-size: 3rem;
 }
 
 .keyboard{
@@ -125,6 +130,7 @@ h1 {
     display: none;
 }
 #buttonContainer{
+    margin: 30px 0px;
     display: flex;
     justify-content: flex-end;
 }

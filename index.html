@@ -11,12 +11,17 @@
    <h1>Ostinato</h1>
    <div class="content">
         <h2 id = "scaleLabel">C Major</h2>
-        <div class="overlay">
-            <div class="overlay-content">
+        <div class="overlay" id = "midi-overlay">
+            <div class="overlay-content" id="midi-overlay-content">
                 <h2>Connect Your Piano</h2>
                 <p>Connect your digital piano to this device using a MIDI cable.</p>
                 <button id="connect-midi-button">Connect MIDI</button>
                 <span id="midiStatus"></span>
+            </div>
+        </div>
+        <div class="overlay hidden" id = "completion-overlay">
+            <div class="overlay-content" id = "completion-overlay-content">
+                <h2>Good Job!</h2>
             </div>
         </div>
         <div class="keyboard">

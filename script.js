@@ -1,6 +1,7 @@
 // DOM elements
 const connectButton = document.querySelector('#connect-midi-button');
-const overlay = document.querySelector('.overlay');
+const midiOverlay = document.querySelector('#midi-overlay');
+const completionOverlay = document.querySelector('#completion-overlay');
 const midiStatus= document.querySelector('#midiStatus');
 const modes = document.querySelectorAll('.mode-button')
 const keys = document.querySelectorAll('.keyboard button')
@@ -40,7 +41,6 @@ function activateMode(event){
 }
 // Scale and practice state
 const cMajorNotes = [60, 62, 64, 65, 67, 69, 71, 72];
-
 let expectedNoteIndex = 0;
 
 // MIDI connection
@@ -59,9 +59,8 @@ async function connectMIDI() {
             await input.open();
             console.log(`Input connection: ${input.connection}`);
             input.addEventListener("midimessage", handleMIDIMessage);
-
         }
-        overlay.classList.add("hidden");
+        midiOverlay.classList.add("hidden");
     } catch (error){
         console.log("An error occurred when connecting to MIDI: ", error.message);
         midiStatus.textContent = "Failed to connect to MIDI.";
@@ -85,14 +84,22 @@ function handleMIDIMessage(event){
             key.classList.add("pressed");
         }
         else if(currentMode === scaleMode){
-            console.log(`Pressed: ${note} Expected: ${cMajorNotes[expectedNoteIndex]}`);
+            if(expectedNoteIndex >= cMajorNotes.length){
+                return;
+            }
             clearIncorrectKeys();
             if(note === cMajorNotes[expectedNoteIndex]){
                 key.classList.add("correct");
-                keys.forEach(key => {
-                    key.classList.remove("incorrect");
-                });
                 expectedNoteIndex++;
+                if (expectedNoteIndex === cMajorNotes.length){
+                    completionOverlay.classList.remove("hidden");
+                    setTimeout(() => {
+                        completionOverlay.classList.add("hidden");
+                        clearIncorrectKeys();
+                        clearCorrectKeys();
+                        expectedNoteIndex = 0;
+                    }, 5000);
+                }
             }else{
                 key.classList.add("incorrect");
             }
@@ -105,6 +112,12 @@ function handleMIDIMessage(event){
     function clearIncorrectKeys(){
         keys.forEach(key => {
             key.classList.remove("incorrect");  
+        });        
+    }
+
+    function clearCorrectKeys(){
+        keys.forEach(key => {
+            key.classList.remove("correct");  
         });        
     }
 }
