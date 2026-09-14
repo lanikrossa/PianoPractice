@@ -3,73 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piano Practice App</title>
+    <meta name="description" content="Octavia is a MIDI-powered piano practice studio.">
+    <title>Octavia — Piano Practice</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="background">
+<body>
+    <div class="ambient-glow ambient-glow--one" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--two" aria-hidden="true"></div>
 
-   <h1>Octavia</h1>
-   <div class="content">
-        <h2 id = "scaleLabel">C Major</h2>
-        <div class="overlay" id = "midi-overlay">
-            <div class="overlay-content" id="midi-overlay-content">
-                <h2>Connect Your Piano</h2>
-                <p>Connect your digital piano to this device using a MIDI cable.</p>
-                <button id="connect-midi-button">Connect MIDI</button>
-                <span id="midiStatus"></span>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="#" aria-label="Octavia home">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" role="img">
+                        <path d="M14 21.5c0-6.1 4.5-10.5 10-10.5s10 4.4 10 10.5V25H14v-3.5Z" fill="currentColor"/>
+                        <circle cx="20.5" cy="19.5" r="1.5" fill="white"/>
+                        <circle cx="27.5" cy="19.5" r="1.5" fill="white"/>
+                        <path d="M14 25c0 6-4 5.5-4 10M19 25c0 7-3 7-3 11M24 25v11M29 25c0 7 3 7 3 11M34 25c0 6 4 5.5 4 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span>Octavia</span>
+            </a>
+
+            <div class="midi-pill" id="midiConnectionStatus" aria-label="MIDI setup available">
+                <span class="midi-pill__dot" aria-hidden="true"></span>
+                <span class="midi-pill__label">MIDI setup</span>
             </div>
-        </div>
-        <div class="overlay hidden" id = "completion-overlay">
-            <div class="overlay-content" id = "completion-overlay-content">
-                <h2>Good Job!</h2>
+        </header>
+
+        <main>
+            <section class="practice-card" aria-label="Piano practice">
+                <div class="practice-card__header">
+                    <div>
+                        <h2 id="modeDescription" class="mode-description">Explore the Keys</h2>
+                    </div>
+
+                    <div id="buttonContainer" aria-label="Practice mode">
+                        <button class="mode-button active" data-mode="free-play" aria-pressed="true">
+                            Free Play
+                        </button>
+                        <button class="mode-button" data-mode="scale" aria-pressed="false">
+                            Scales
+                        </button>
+                    </div>
+                </div>
+
+                <div class="keyboard-frame">
+                    <div class="keyboard" aria-label="One octave piano keyboard">
+                        <button class="white-key" data-midi-note="60" aria-label="Middle C"><span>C</span></button>
+                        <button class="black-key c-sharp-4" data-midi-note="61" aria-label="C sharp above middle C"><span>C#</span></button>
+                        <button class="white-key" data-midi-note="62" aria-label="D above middle C"><span>D</span></button>
+                        <button class="black-key d-sharp-4" data-midi-note="63" aria-label="D sharp above middle C"><span>D#</span></button>
+                        <button class="white-key" data-midi-note="64" aria-label="E above middle C"><span>E</span></button>
+                        <button class="white-key" data-midi-note="65" aria-label="F above middle C"><span>F</span></button>
+                        <button class="black-key f-sharp-4" data-midi-note="66" aria-label="F sharp above middle C"><span>F#</span></button>
+                        <button class="white-key" data-midi-note="67" aria-label="G above middle C"><span>G</span></button>
+                        <button class="black-key g-sharp-4" data-midi-note="68" aria-label="G sharp above middle C"><span>G#</span></button>
+                        <button class="white-key" data-midi-note="69" aria-label="A above middle C"><span>A</span></button>
+                        <button class="black-key a-sharp-4" data-midi-note="70" aria-label="A sharp above middle C"><span>A#</span></button>
+                        <button class="white-key" data-midi-note="71" aria-label="B above middle C"><span>B</span></button>
+                        <button class="white-key" data-midi-note="72" aria-label="The next C above middle C"><span>C</span></button>
+                    </div>
+                </div>
+
+                <div class="practice-card__footer">
+                    <span class="footer-icon" aria-hidden="true">♪</span>
+                    <p id="practiceHint">Play any note on your piano to see it light up here.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <span>Listen. Learn. Grow.</span>
+            <span>Octavia Piano Studio</span>
+        </footer>
+    </div>
+
+    <div class="overlay" id="midi-overlay" role="dialog" aria-modal="true" aria-labelledby="midi-title">
+        <div class="overlay-content" id="midi-overlay-content">
+            <div class="modal-icon modal-icon--piano" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
             </div>
-        </div>
-        <div class="keyboard">
-                <button class="white-key" data-note= "C4" data-midi-note="60">
-                    <span>C</span>
-                </button>
-                <button class="black-key c-sharp-4" data-note="C#4" data-midi-note="61">
-                    <span>C#</span>
-                </button>
-                <button class="white-key" data-note="D4" data-midi-note="62">
-                    <span>D</span>
-                </button>
-                <button class="black-key d-sharp-4" data-note="D#4" data-midi-note="63">
-                    <span>D#</span>
-                </button>
-                <button class="white-key" data-note="E4" data-midi-note="64">
-                    <span>E</span>
-                </button>
-                <button class="white-key" data-note="F4" data-midi-note="65">
-                    <span>F</span>
-                </button>
-                <button class="black-key f-sharp-4" data-note="F#4" data-midi-note="66">
-                    <span>F#</span>
-                </button>
-                <button class="white-key" data-note="G4" data-midi-note="67">
-                    <span>G</span>
-                </button>
-                <button class="black-key g-sharp-4" data-note="G#4" data-midi-note="68">
-                    <span>G#</span>
-                </button>
-                <button class="white-key" data-note="A4" data-midi-note="69">
-                    <span>A</span>
-                </button>
-                <button class="black-key a-sharp-4" data-note="A#4" data-midi-note="70">
-                    <span>A#</span>
-                </button>
-                <button class="white-key" data-note="B4" data-midi-note="71">
-                    <span>B</span>
-                </button>
-                <button class="white-key" data-note="C5" data-midi-note="72">
-                    <span>C</span>
-                </button>
-        </div>
-        <div id= "buttonContainer">
-            <button class = "mode-button active" data-mode = "free-play">Free Play</button>
-            <button class = "mode-button" data-mode = "scale">Scales Practice</button>
+            <p class="eyebrow">Before you begin</p>
+            <h2 id="midi-title">Connect your piano</h2>
+            <p class="modal-description">Plug in your digital piano with a MIDI cable, then let Octavia listen for it.</p>
+            <div class="connection-note">
+                <span class="connection-note__number">1</span>
+                <span>Make sure your piano is switched on and connected to this device.</span>
+            </div>
+            <button id="connect-midi-button">
+                <span>Connect MIDI</span>
+                <span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+            <span id="midiStatus" role="status" aria-live="polite"></span>
+
         </div>
     </div>
+
+    <div class="overlay hidden" id="completion-overlay" role="dialog" aria-modal="true" aria-labelledby="completion-title">
+        <div class="overlay-content completion-card" id="completion-overlay-content">
+            <div class="completion-badge" aria-hidden="true">✓</div>
+            <p class="eyebrow">Scale complete</p>
+            <h2 id="completion-title">Beautifully played!</h2>
+            <p>Ready for another round?</p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -3,9 +3,11 @@ const connectButton = document.querySelector('#connect-midi-button');
 const midiOverlay = document.querySelector('#midi-overlay');
 const completionOverlay = document.querySelector('#completion-overlay');
 const midiStatus= document.querySelector('#midiStatus');
+const midiConnectionStatus = document.querySelector('#midiConnectionStatus');
 const modes = document.querySelectorAll('.mode-button')
 const keys = document.querySelectorAll('.keyboard button')
-const scaleLabel= document.querySelector('#scaleLabel');
+const modeDescription = document.querySelector('#modeDescription');
+const practiceHint = document.querySelector('#practiceHint');
 
 // Practice Modes
 const [freeMode, scaleMode] = ["free-play", "scale"]
@@ -19,8 +21,10 @@ function activateMode(event){
     const clickedButton = event.target;
     modes.forEach(mode => {
         mode.classList.remove("active");
+        mode.setAttribute("aria-pressed", "false");
     });
     clickedButton.classList.add("active");
+    clickedButton.setAttribute("aria-pressed", "true");
     currentMode = clickedButton.dataset.mode;
     if (currentMode === scaleMode){
         keys.forEach(key => {
@@ -29,13 +33,15 @@ function activateMode(event){
             key.classList.remove("correct");      
         });
         expectedNoteIndex = 0;
-        scaleLabel.style.visibility = "visible";
+        modeDescription.textContent = "C Major scale";
+        practiceHint.textContent = "Play the scale starting at Middle C.";
     } else if (currentMode === freeMode){
         keys.forEach(key => {
             key.classList.remove("incorrect");
             key.classList.remove("correct");            
         });
-        scaleLabel.style.visibility = "hidden";
+        modeDescription.textContent = "Explore the Keys";
+        practiceHint.textContent = "Play any note on your piano to see it light up here.";
     }
     console.log(`Changed mode to: ${currentMode}`);
 }
@@ -48,10 +54,19 @@ connectButton.addEventListener('click', connectMIDI);
 
 async function connectMIDI() {
     console.log("Connect Midi clicked!");
+    const connectButtonLabel = connectButton.querySelector('span:first-child');
+    connectButton.disabled = true;
+    connectButtonLabel.textContent = "Looking for piano…";
+    midiStatus.textContent = "";
     try{
+        if (!navigator.requestMIDIAccess){
+            throw new Error("Web MIDI is not supported in this browser.");
+        }
         const midiAccess = await navigator.requestMIDIAccess();
         if (midiAccess.inputs.size == 0){
-            midiStatus.textContent = "No MIDI keyboard found."
+            midiStatus.textContent = "No MIDI keyboard found. Check the cable and try again."
+            connectButton.disabled = false;
+            connectButtonLabel.textContent = "Try again";
             return;
         }
         for (const input of midiAccess.inputs.values()){
@@ -60,10 +75,15 @@ async function connectMIDI() {
             console.log(`Input connection: ${input.connection}`);
             input.addEventListener("midimessage", handleMIDIMessage);
         }
+        midiConnectionStatus.classList.add("connected");
+        midiConnectionStatus.setAttribute("aria-label", "MIDI piano connected");
+        midiConnectionStatus.querySelector('.midi-pill__label').textContent = "Piano connected";
         midiOverlay.classList.add("hidden");
     } catch (error){
         console.log("An error occurred when connecting to MIDI: ", error.message);
-        midiStatus.textContent = "Failed to connect to MIDI.";
+        midiStatus.textContent = error.message || "Failed to connect to MIDI.";
+        connectButton.disabled = false;
+        connectButtonLabel.textContent = "Try again";
     }
 }
 
@@ -121,7 +141,3 @@ function handleMIDIMessage(event){
         });        
     }
 }
-
-
-
-
